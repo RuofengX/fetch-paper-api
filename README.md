@@ -12,7 +12,7 @@ Target file will save to disk named with 'target.jar' and a validate file named 
 `python fetch-paper-api.py -p paper -v 1.18.1`
 
 > I want to download latest build of velocity 3.1.1, using:  
-`python fetch-paper-api.py -p velocity 3.1.1`
+`python fetch-paper-api.py -p velocity -v 3.1.1`
 
 ## Docker Example
 Please refer to Dockerfile in this repository.
