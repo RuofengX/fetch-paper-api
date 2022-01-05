@@ -14,3 +14,5 @@ Target file will save to disk named with 'target.jar' and a validate file named 
 > I want to download latest build of velocity 3.1.1, using:  
 `python fetch-paper-api.py -p velocity 3.1.1`
 
+## Docker Example
+Please refer to Dockerfile in this repository.
