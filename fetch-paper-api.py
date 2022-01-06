@@ -31,19 +31,17 @@ sh.setFormatter(format)
 logger.addHandler(sh)
 
 # argument parser
-parser = argparse.ArgumentParser(description='Fetch latest build from paper.io/api/v2, and check them with SHA256.')
+parser = argparse.ArgumentParser(description='fetch latest build from paper.io/api/v2, and check them with SHA256.')
 parser.add_argument("project", type=str,
-                    help=f"Choice which project should use.")
+                    help=f"choice which project should use.")
 parser.add_argument("version", type=str,
-                    help="Choice which version should use")
+                    help="choice which version should use")
 parser.add_argument("-b", "--build", type=str,
-                    help="Build number, leave blank to fetch latest.")
+                    help="build number, leave blank to fetch latest.")
 
 args = parser.parse_args()
 
 # Nicer traceback
-
-
 def exception_handler(exception_type, exception_value, traceback):
     # All trace are belong to this!
     logger.error(
@@ -55,8 +53,6 @@ sys.excepthook = exception_handler
 
 
 # Custom errors
-
-
 class NetworkError(Exception):
     def __init__(self, url, code):
         self.code = code
@@ -69,14 +65,13 @@ class EntryNotExistError(Exception):
         logger.error(
             f"Target {content} is not in {group} list, valid choice on api now is: {avil}")
 
+
 # Main code below
 # From here it is expected to create a link like these:
 # `https://papermc.io/api/v2/projects/waterfall/versions/1.16/builds/430/downloads/waterfall-1.16-430.jar`
 # it could be structed like:
 # {PAPER_API_URL}/projects/{project}/versions/{version}/builds/{build}/downloads/{app_name}
 # {app_name} is auto fetched, and each part of this url is parsed by one class.
-
-
 class Link():
     def __init__(self):
         self.base = PAPER_API_URL
