@@ -14,19 +14,19 @@ It is a simple python script to download jar file from papermc.io/api/v2 with cu
 
 ### Usage
 ```
-fetch-paper-api.py [-h] [-v VERSION] [-b BUILD] project
+usage: fetch-paper-api.py [-h] [-b BUILD] project version
 
 Fetch latest build from paper.io/api/v2, and check them with SHA256.
 
 positional arguments:
   project               Choice which project should use.
-  
+  version               Choice which version should use
+
 optional arguments:
   -h, --help            show this help message and exit
-  -v VERSION, --version VERSION
-                        Choice which version should use
   -b BUILD, --build BUILD
                         Build number, leave blank to fetch latest.
+
 ```
 
 ## Docker Example
