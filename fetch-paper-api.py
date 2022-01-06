@@ -5,7 +5,7 @@ import urllib.request
 import argparse
 import requests
 import hashlib
-from time import sleep
+from time import *
 
 # Quick entry
 open_url = urllib.request.urlopen
@@ -13,6 +13,7 @@ open_url = urllib.request.urlopen
 # SETTING
 PAPER_API_URL = "https://papermc.io/api/v2"
 LOG_LEVEL = 'INFO'
+START_TIME = time()
 
 # logger init
 log_level_map = {
@@ -192,12 +193,12 @@ class Application(Downloads):
         logger.warning(
             f'Target Project: {self.project} , Version: {self.version} , Build: {self.build}, Application name: {self.app_name}')
         logger.warning(f'SHA256 code is {self.valid}')
-        logger.warning(f'Download begin.')
+        logger.info(f'Download begin.')
 
         try:
             _file = requests.get(self.download_link)
             self.download_flag = True
-            logger.warning(f'Download successed.')
+            logger.info(f'Download successed.')
         except urllib.error.HTTPError:
             logger.error(f'HTTP Error')
             return False
@@ -210,7 +211,7 @@ class Application(Downloads):
             _.write(_file.content)
         with open(f'{self.filename}.sha256', 'w') as _:
             _.write(self.valid)
-        logger.warning(f'File is saved as {self.filename}.')
+        logger.info(f'File is saved as {self.filename}.')
         logger.info(f'File SHA256 validate code is {self.valid}')
         return True
 
@@ -230,7 +231,7 @@ class Application(Downloads):
             _api_hash = _.read()
 
         if _target_hash == _api_hash:
-            logger.warning(f'SHA256 check passed.')
+            logger.info(f'SHA256 check passed.')
             return True
         else:
             logger.error(f'SHA256 check NOT passed!')
@@ -249,4 +250,8 @@ if __name__ == '__main__':
     )
     app.download_file()
     app.varify_file()
-    sleep(5)
+    time_use = round(
+        time() - START_TIME,
+        ndigits=2
+    )
+    logger.info(f'Done!({time_use}s)')
