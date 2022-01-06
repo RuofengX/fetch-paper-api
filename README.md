@@ -19,13 +19,13 @@ usage: fetch-paper-api.py [-h] [-b BUILD] project version
 Fetch latest build from paper.io/api/v2, and check them with SHA256.
 
 positional arguments:
-  project               Choice which project should use.
-  version               Choice which version should use
+  project               choice which project should use.
+  version               choice which version should use
 
 optional arguments:
   -h, --help            show this help message and exit
   -b BUILD, --build BUILD
-                        Build number, leave blank to fetch latest.
+                        build number, leave blank to fetch latest.
 
 ```
 
