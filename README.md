@@ -4,15 +4,30 @@ It is a simple python script to download jar file from papermc.io/api/v2 with cu
 ### Requirements
 - python3
 - modules listed in requirements.txt, use `pip install -r requirements.txt` to install all of them
-### Usage
-`python fetch-paper-api.py -p <project> -v <version>`  
-Target file will save to disk named with 'target.jar' and a validate file named with 'target.jar.sha256'
-### Example  
-> I want to download latest build of papermc 1.18.1, using:  
-`python fetch-paper-api.py -p paper -v 1.18.1`
+
+### Example(TL;NR)  
+> I want to download build 100 of papermc 1.18.1, using:  
+`python fetch-paper-api.py paper -v 1.18.1 -b 100`
 
 > I want to download latest build of velocity 3.1.1, using:  
-`python fetch-paper-api.py -p velocity -v 3.1.1`
+`python fetch-paper-api.py velocity -v 3.1.1`
+
+### Usage
+```
+fetch-paper-api.py [-h] [-v VERSION] [-b BUILD] project
+
+Fetch latest build from paper.io/api/v2, and check them with SHA256.
+
+positional arguments:
+  project               Choice which project should use.
+  
+optional arguments:
+  -h, --help            show this help message and exit
+  -v VERSION, --version VERSION
+                        Choice which version should use
+  -b BUILD, --build BUILD
+                        Build number, leave blank to fetch latest.
+```
 
 ## Docker Example
 Please refer to Dockerfile in this repository.
