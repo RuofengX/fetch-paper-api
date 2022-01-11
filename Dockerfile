@@ -7,4 +7,4 @@ ARG PROJECT='paper'
 ARG VERSION='1.18.1'
 
 COPY fetch-paper-api.py .
-RUN python fetch-paper-api.py -p $PROJECT -v $VERSION
+RUN python fetch-paper-api.py $PROJECT -v $VERSION
