@@ -1,0 +1,13 @@
+[package]
+name = "fetch-paper-api"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = "1.0.89"
+constcat = "0.5.1"
+reqwest = { version = "0.12.8", features = ["json", "stream"] }
+serde = { version = "1.0.210", features = ["derive"] }
+sha2 = "0.10.8"
+tokio = { version = "1.40.0", features = ["fs", "macros", "rt-multi-thread"] }
+tokio-stream = "0.1.16"
