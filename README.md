@@ -1,33 +1,39 @@
 # fetch-paper-api
-It is a simple python script to download jar file from papermc.io/api/v2 with customable project(paper, velocity, etc.) and version(1.18.1, 3.1.1, etc.)
+It is a simple command tool, written in rust, designed to download jar file from papermc.io/api/v2 with different projects, versions and builds.
+
 ## Brief Guide
 ### Requirements
-- python3
-- modules listed in requirements.txt, use `pip install -r requirements.txt` to install all of them
+- a good network
+- [cargo](https://www.rust-lang.org/tools/install) 
+
+### Install
+Simply type `cargo install fetch-paper` in your terminal.
 
 ### Example(TL;NR)  
 > I want to download build 100 of papermc 1.18.1, using:  
-`python fetch-paper-api.py paper -v 1.18.1 -b 100`
+`fetchpaper paper -v 1.18.1 -b 100`
 
-> I want to download latest build of velocity 3.1.1, using:  
-`python fetch-paper-api.py velocity -v 3.1.1`
+> I want to download latest build of velocity 3.1.1, and save to ~/Downloads, using:  
+`fetchpaper velocity -p ~/Downloads -v 3.1.1`
+
+> I want to download latest version and latest build of velocity, using:  
+`fetchpaper paper`
 
 ### Usage
 ```
-usage: fetch-paper-api.py [-h] [-b BUILD] project version
+fetchpaper [OPTIONS] <PROJECT>
 
-Fetch latest build from paper.io/api/v2, and check them with SHA256.
+Arguments:
+  <PROJECT>  project_id
 
-positional arguments:
-  project               choice which project should use.
-  version               choice which version should use
-
-optional arguments:
-  -h, --help            show this help message and exit
-  -b BUILD, --build BUILD
-                        build number, leave blank to fetch latest.
-
+Options:
+  -p, --path <VER>     path to download file, default will use "./target.jar" [default: ./target.jar]
+  -v, --version <VER>  version id, default will use latest
+  -b, --build <BUILD>  build id, default will use latest
+      --skip-checksum  
+  -h, --help           Print help
 ```
 
-## Docker Example
-Please refer to Dockerfile in this repository.
+## Python version
+Python version is end-of-support now!  
+Rust provides powerful cargo tools to do all of those annoying versions and requirements things. Cheers!
