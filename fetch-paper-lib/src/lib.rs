@@ -168,8 +168,8 @@ pub struct Info {
     pub sha256: String, //"621649a139ea51a703528eac1eccac40a1c8635bc4d376c05e248043b23cb3c3"
 }
 
-#[tokio::main(flavor = "multi_thread", worker_threads = 10)]
-async fn main() -> Result<()> {
+#[tokio::test(flavor = "multi_thread", worker_threads = 10)]
+async fn test() -> Result<()> {
     let root = Root::new().await?;
     let projects = &root.projects;
     for p in projects {

@@ -181,7 +181,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e8c02a5121d4ea3eb16a80748c74f5549a5665e4c21333c6098f283870fbdea6"
 
 [[package]]
-name = "fetch-paper-api"
+name = "fetch-paper-lib"
 version = "0.1.0"
 dependencies = [
  "anyhow",
