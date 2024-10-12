@@ -1,0 +1,12 @@
+[package]
+name = "fetch-paper"
+version = "0.1.0"
+edition = "2021"
+description = "cli that download latest build from papermc.io"
+license = "MIT"
+
+[dependencies]
+anyhow = "1.0.89"
+clap = { version = "4.5.20", features = ["derive"] }
+fetch-paper-lib = "0.1.1"
+tokio = { version = "1.40.0", features = ["macros", "rt"] }
