@@ -5,6 +5,12 @@ edition = "2021"
 description = "cli that download latest build from papermc.io"
 license = "MIT"
 
+[[bin]]
+name = "fetchpaper"
+path = "src/main.rs"
+test = false
+bench = false
+
 [dependencies]
 anyhow = "1.0.89"
 clap = { version = "4.5.20", features = ["derive"] }
