@@ -10,7 +10,7 @@ use tokio::{fs::File, io::AsyncWriteExt};
 use tokio_stream::StreamExt;
 
 /// Official api url base.
-pub const API_BASE: &'static str = "https://papermc.io/api/v2";
+pub const API_BASE: &'static str = "https://api.papermc.io/v2";
 
 /// Everything start from here.
 ///

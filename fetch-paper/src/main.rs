@@ -8,8 +8,8 @@ use log::{error, info, warn};
 #[derive(Parser)]
 #[command(about)]
 struct Cli {
-    /// project_id
-    project: String,
+    /// project's name, leave blank to show all projects
+    project: Option<String>,
 
     /// path to download file, default will use "./target.jar"
     #[arg(short, long, value_name = "VER", default_value = "./target.jar", value_hint = clap::ValueHint::FilePath)]
@@ -34,19 +34,25 @@ async fn main() -> Result<()> {
     let cli = Cli::parse();
 
     if cli.path.exists() {
-        return Err(anyhow!("file already exists"));
+        warn!("file already exists and would be truncated");
     }
 
     let root = Root::new().await?;
-    if !root.projects.contains(&cli.project) {
-        info!("available projects:");
-        for p in root.projects {
-            info!("\t{}", p)
-        }
-        return Err(anyhow!(format!("project <{}> not found", cli.project)));
+    info!("available projects:");
+    for p in &root.projects {
+        info!("\t{}", p)
     }
 
-    let project = root.get_project(&cli.project).await?;
+    if cli.project.is_none() {
+        return Err(anyhow!("please choose one project"));
+    }
+    let project = cli.project.unwrap();
+
+    if !root.projects.contains(&project) {
+        return Err(anyhow!(format!("project <{}> not found", &project)));
+    }
+
+    let project = root.get_project(&project).await?;
     let version = if let Some(target_version) = cli.version {
         if project.versions.contains(&target_version) {
             project.get_version(&target_version).await?
@@ -69,18 +75,18 @@ async fn main() -> Result<()> {
         version.get_latest_build().await?
     };
 
-    warn!("start download >> {}", build.download_link());
+    warn!("download started>> {}", build.download_link());
     warn!("download path >> {}", cli.path.to_string_lossy());
-    warn!("remote sha256 >> {}", build.download_digest_sha256());
+    info!("remote sha256 >> {}", build.download_digest_sha256());
     build.download(&cli.path).await?;
-    info!("download done");
+    warn!("download done");
 
     if !cli.skip_checksum {
-        info!("checking sha256 >> ");
+        info!("checking sha256");
         if build.checksum(&cli.path).await? {
-            info!("pass");
+            info!("check sha256 pass");
         } else {
-            error!("fail");
+            error!("check sha256 fail");
             return Err(anyhow!("sha256 check fail"));
         }
     }
