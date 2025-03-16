@@ -1,16 +1,16 @@
 ARG PROJECT='paper'
 ARG VERSION='1.21'
-
-FROM rust:slim AS builder
+FROM docker.1ms.run/rust:bookworm AS builder
 WORKDIR /app
-RUN RUSTUP_DIST_SERVER="https://rsproxy.cn" \ 
-    RUSTUP_UPDATE_ROOT="https://rsproxy.cn/rustup" \
-    rustup target add x86_64-unknown-linux-musl
-
+RUN sed -i 's@deb.debian.org@repo.huaweicloud.com@g' /etc/apt/sources.list.d/debian.sources
+RUN apt update && apt install -y pkg-config libssl-dev
 COPY ./fetch-paper .
-RUN cargo build --target x86_64-unknown-linux-musl --release
+RUN cargo build --release
 
-FROM scratch AS downloader
+FROM docker.1ms.run/rust:bookworm AS downloader
 WORKDIR /app
 COPY --from=builder /app/target/release/fetchpaper /app
-RUN ["/app/fetchpaper", "$PROJECT", "-v", "$VERSION", "--path", "/target.jar"]
+RUN /app/fetchpaper paper -v 1.21 --path /target.jar
+
+FROM scratch AS file
+COPY --from=builder /target.jar /target.jar
